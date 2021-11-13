@@ -1,6 +1,22 @@
 <template>
   <div>
-    <router-link to="/room/create">Create room</router-link> |
-    <router-link to="/room/join">Join room</router-link>
+    <router-link to="/rooms/create">Create room</router-link>
+    <h3>Room list</h3>
+    <ul>
+      <li :key="key" v-for="(room, key) in rooms">
+        {{ room.name }} <button>Join</button>
+      </li>
+    </ul>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import useRoom from "@/composables/useRoom";
+export default defineComponent({
+  setup() {
+    const { rooms } = useRoom();
+    return { rooms };
+  },
+});
+</script>
