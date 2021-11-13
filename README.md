@@ -1,4 +1,4 @@
-# scrum-poker-2
+# scrum-poker
 
 ## Project setup
 ```
