@@ -1,10 +1,11 @@
-import UserInterface from "./UserInterface";
-
 interface RoomInterface {
   name: string;
   roundingScore: number;
   isVisibleRoundingScore: boolean;
-  users: UserInterface[];
+  users?: {
+    id: string;
+    score: number;
+  };
 }
 
 export default RoomInterface;
