@@ -1,30 +1,31 @@
 <template>
   <div>
-    <div v-if="!user">
-      Create user:
+    <div v-if="!currentUser">
+      Set user:
       <form @submit.prevent="submit">
-        <input v-model="name" /><button type="submit">Submit</button>
+        <input v-model="name" />
+        <button type="submit">Submit</button>
       </form>
     </div>
-    <div>
-      <div>User:{{ user }}</div>
-      <router-view />
+    <div v-else>
+      <div>User:{{ currentUser }}</div>
+      <button @click="removeUser">Remove</button>
     </div>
-    {{ users }}
+    <div>
+      <router-view />
+      <pre>{{ users }}</pre>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import useUser from "@/composables/useUser";
-import { computed, ref } from "vue";
-import { v4 as uuidv4 } from "uuid";
+import { ref } from "vue";
 
-const { getUsers, users } = useUser();
-getUsers();
-var userId = computed(() => localStorage.getItem("filmin-scrum-poker-user-id"));
-const user = computed(() => false);
+const { setUser, currentUser, users, removeUser } = useUser();
 const name = ref("");
-function submit() {
-  const uuid = uuidv4();
+async function submit() {
+  await setUser(name.value);
+  name.value = "";
 }
 </script>
