@@ -31,6 +31,10 @@ const useUser = (): any => {
     return users.value?.[id];
   }
 
+  // window.onbeforeunload = function () {
+  //   removeUser();
+  // };
+
   return {
     setUser,
     users,

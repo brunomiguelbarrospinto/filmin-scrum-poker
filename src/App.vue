@@ -13,7 +13,6 @@
     </div>
     <div>
       <router-view />
-      <pre>{{ users }}</pre>
     </div>
   </div>
 </template>
@@ -22,7 +21,7 @@
 import useUser from "@/composables/useUser";
 import { ref } from "vue";
 
-const { setUser, currentUser, users, removeUser } = useUser();
+const { setUser, currentUser, removeUser } = useUser();
 const name = ref("");
 async function submit() {
   await setUser(name.value);

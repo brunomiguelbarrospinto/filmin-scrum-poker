@@ -1,7 +1,16 @@
-<template>Room id: {{ id }}</template>
+<template>
+  <div v-if="room">
+    Room: {{ room.id }} - {{ room.name }}
+    <hr />
+    <div>{{ room.users }}</div>
+  </div>
+</template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed, watch } from "vue";
+import useRoom from "@/composables/useRoom";
+import useUser from "@/composables/useUser";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   props: {
@@ -10,8 +19,17 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    return {};
+  setup(props) {
+    const { currentUser } = useUser();
+    const router = useRouter();
+    watch(currentUser, (value) => {
+      if (!value) {
+        router.push("/rooms");
+      }
+    });
+    const { getRoomById } = useRoom();
+    const room = computed(() => getRoomById(props.id));
+    return { room };
   },
 });
 </script>
